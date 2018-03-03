@@ -1,0 +1,24 @@
+apply plugin: "java"
+apply plugin: "war"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+def versions = [
+	"spring": [
+		"core": "4.3.14.RELEASE"
+	],
+	"jackson": "2.9.4"
+]
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.springframework', name: 'spring-webmvc', version: "${versions.spring.core}"
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${versions.jackson}"
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${versions.jackson}"
+}
