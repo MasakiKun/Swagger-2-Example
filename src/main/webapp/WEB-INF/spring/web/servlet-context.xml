@@ -14,4 +14,11 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	
+	<!-- Swagger Config Class bean -->
+	<bean class="kr.ayukawa.swagger.config.SwaggerConfig" />
+	
+	<!-- Swagger document endpoint -->
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
+	
 </beans>
