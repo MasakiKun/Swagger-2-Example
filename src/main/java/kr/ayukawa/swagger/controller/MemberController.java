@@ -3,8 +3,6 @@ package kr.ayukawa.swagger.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.net.ssl.SSLEngineResult.Status;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +16,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import kr.ayukawa.swagger.model.Member;
 import kr.ayukawa.swagger.service.IMemberService;
 
@@ -27,13 +29,15 @@ public class MemberController {
 	@Autowired
 	IMemberService memberService;
 	
+	@ApiOperation(value="멤버 전체 목록 조회", notes="멤버들의 전체 목록을 조회한다.")
 	@RequestMapping(method=RequestMethod.GET, produces= {"application/json;charset=utf-8"})
 	public ResponseEntity<List<Member>> getAllMembers() {
 		return new ResponseEntity<>(memberService.getAllMembers(), HttpStatus.OK);
 	}
 	
+	@ApiOperation(value="멤버 조회", notes="memberId에 해당하는 특정 멤버를 조회한다.")
 	@RequestMapping(value="/{memberId}", method=RequestMethod.GET, produces={"application/json;charset=utf-8"})
-	public ResponseEntity<Member> getMemberById(@PathVariable(value="memberId") String memberId) {
+	public ResponseEntity<Member> getMemberById(@ApiParam(value="멤버 ID", required=true) @PathVariable(value="memberId") String memberId) {
 		try {
 			int nMemberId = Integer.parseInt(memberId);
 			Member member = memberService.getMemberByMemberId(nMemberId);
@@ -50,6 +54,10 @@ public class MemberController {
 		}
 	}
 	
+	@ApiOperation(value="멤버 추가", notes="새로운 멤버를 추가한다.")
+	@ApiImplicitParams(
+		@ApiImplicitParam(name="member", value="멤버의 model 형태에 해당하는 JSON 문자열")
+	)
 	@RequestMapping(method=RequestMethod.POST, produces= {"application/json;charset=utf-8"})
 	public ResponseEntity<Member> insertMember(@RequestBody String member) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -68,6 +76,10 @@ public class MemberController {
 		}
 	}
 	
+	@ApiOperation(value="멤버 정보 수정", notes="memberId에 해당하는 멤버의 데이터를 수정한다.")
+	@ApiImplicitParams(
+		@ApiImplicitParam(name="member", value="멤버의 model 형태에 해당하는 JSON 문자열")
+	)
 	@RequestMapping(method=RequestMethod.PUT, produces={"application/json;charset=utf-8"})
 	public ResponseEntity<Member> updateMember(@RequestBody String member) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -86,6 +98,10 @@ public class MemberController {
 		}
 	}
 	
+	@ApiOperation(value="멤버 삭제", notes="memberId에 해당하는 멤버의 데이터를 삭제한다.")
+	@ApiImplicitParams(
+		@ApiImplicitParam(name="member", value="멤버의 model 형태에 해당하는 JSON 문자열")
+	)
 	@RequestMapping(value="/{memberId}", method=RequestMethod.DELETE, produces= {"application/json;charset=utf-8"})
 	public ResponseEntity<Member> deleteMemberById(@PathVariable(value="memberId") String memberId) {
 		try {
