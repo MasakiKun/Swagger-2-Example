@@ -10,7 +10,8 @@ def versions = [
 	"spring": [
 		"core": "4.3.14.RELEASE"
 	],
-	"jackson": "2.9.4"
+	"jackson": "2.9.4",
+	"springfox": "2.8.0"
 ]
 
 repositories {
@@ -21,4 +22,6 @@ dependencies {
 	compile group: 'org.springframework', name: 'spring-webmvc', version: "${versions.spring.core}"
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${versions.jackson}"
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${versions.jackson}"
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: "${versions.springfox}"
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${versions.springfox}"
 }
