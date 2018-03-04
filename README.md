@@ -7,3 +7,7 @@ Java Config 예제가 아닌 XML Namespace 예제이지만, Springfox는 완전�
 이 프로젝트는 아래 문서를 참고해서 만들어졌다.
 
   * [Spring REST + Swagger 2 Integration with Annotation + XML Example](https://www.concretepage.com/spring-4/spring-rest-swagger-2-integration-with-annotation-xml-example)
+
+## 구동방법
+
+톰캣 등의 서블릿 컨테이너에 배포한 후, `/swagger-ui.html` 로 접속한다.
